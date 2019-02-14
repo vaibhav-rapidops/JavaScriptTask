@@ -1,0 +1,9 @@
+.nav-item{
+
+	font-weight: bold;
+	font-size: 20px;
+	padding: 20;
+    margin-top: 20px;
+	border-radius: 5px;
+	text-align: center;
+}
