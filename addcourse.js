@@ -14,12 +14,12 @@ function checkdatabase()
     }
 }
 
-function validation(){
+/*function validation(){
 
    let flagOfdb=checkdatabase();
    if(flagOfdb){
         let retrivedatas=JSON.parse(localStorage.getItem("course"));
-         let len=table.getElementsByTagName('tr').length;
+         let len=table_1.getElementsByTagName('tr').length;
         console.log(len);
         for(let i in retrivedatas){
       
@@ -39,11 +39,11 @@ function validation(){
     /*this.data={"email":this.email,"password":this.pwd,"usertype":this.usertype};
     this.retrivedatas.push(this.data);
     localStorage.setItem("account",JSON.stringify(this.retrivedatas));
-    */alert("First, You Need to Enter Course");
+    alert("First, You Need to Enter Course");
     }
    }
 
 
-
+*/
 
 
