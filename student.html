@@ -7,8 +7,8 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-  <link rel="stylesheet" href="home.css">
-<script type="text/javascript" src="home.js"></script>
+  <link rel="stylesheet" href="student.css">
+
 
 </head>
 <body style="height: 100%;">
@@ -19,9 +19,9 @@
       <a class="navbar-brand" href="#">E-Portal</a>
     </div>
     <ul class="nav navbar-nav">
-      <li class="active"><a href="#">Home</a></li>
-      <li><a href="">Course</a></li>
-      <li><a href="student.html">Student</a></li>
+      <li><a href="home.html">Home</a></li>
+      <li><a href="course.html">Course</a></li>
+      <li class="active"><a href="student.html">Student</a></li>
       <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Page 1 <span class="caret"></span></a>
         <ul class="dropdown-menu">
           <li><a href="#">Page 1-1</a></li>
@@ -44,45 +44,49 @@
   <div class="col-lg-2 col-md-2 col-sm-2" style="height: 100%;">
    <ul class="nav flex-column" style="height: 100%;">
    <li class="nav-item" id="first">
-   <span  class="btn btn-block btn-primary" onclick="courselist()">Course List</span>
+   <span  class="btn btn-block btn-primary" onclick="studentList()">Student List</span>
    </li>
    <li class="nav-item">
-     <span  class="btn btn-block btn-primary" onclick="addcourse()">Add Course</span>
+     <span  class="btn btn-block btn-primary" onclick="addStudent()">Add Student</span>
  
    </li> 
    <li class="nav-item">
-     <span  class="btn btn-block btn-primary" onclick="removecourse()">Remove Course</span>
+     <span  class="btn btn-block btn-primary" onclick="removeStudent()">Remove Student</span>
 
    </li>
+   <li class="nav-item">
+    <span  class="btn btn-block btn-primary" onclick="courseAllocation()">Course Allocation</span>
+
+  </li>
    </ul>
   </div>
-  <div id="data_area" class="col-lg-10 col-md-10 col-sm-10" style="border: none">
+  <div id="data_area" class="col-lg-10 col-md-10 col-sm-10" style="border-left: 1px solid darkturquoise; height:100%;">
     
-        <div id="course_list">
+        <div id="student_list">
            <table id="table_1" class="table table-hover">
             <thead>
             <tr>
              <th>No.</th>
-            <th rowspan="2">CourseName</th>
+            <th rowspan="2">StudentName</th>
              </tr>
              </thead>
              <tbody id="tbody_1">
             </tbody>
             </table>
         </div>
-        <div id="add_course" style="margin-top:30px;" >
+        <div id="add_student" style="margin-top:30px;" >
 
          <div class="input-group">
            <span class="input-group-btn">
-            <button onclick="addcoursename()" id="coursenamebtn" type="button" class="btn btn-primary">Add Course</button>
+            <button onclick="addstudentname()" id="studentnamebtn" type="button" class="btn btn-primary">Add Course</button>
             </span>
-            <input type="text" id="coursenametxt" class="form-control" placeholder="coursename">
+            <input type="text" id="studentnametxt" class="form-control" placeholder="coursename">
          </div>
          <table id="table_2" class="table table-hover">
            <thead>
            <tr>
            <th>No.</th>
-           <th rowspan="2">CourseName</th>
+           <th rowspan="2">StudentName</th>
            </tr>
             </thead>
           <tbody id="tbody_2">
@@ -90,31 +94,60 @@
           </table>
         
         </div>
-      <div id="remove_course" style="width: 30%;margin-top:30px;" >
+      <div id="remove_student" style="width: 30%;margin-top:30px;" >
          
          <table id="table_3" class="table">
          <thead>
          <tr>
          <th>No.</th>
-         <th rowspan="2">CourseName</th>
+         <th rowspan="2">StudentName</th>
          </tr>
          </thead>
          <tbody id="tbody_3"></tbody>
          </table>
 
       </div>
+      <div id="course_allocate" style="margin-top:30px;" >
+      
+        <div class="row" style="margin-top:30px; margin-bottom:30px">
+           <div class="col-lg-5 col-md-5 col-sm-5">
+           <table id="table_4" class="table">
+           <thead>
+           <tr>
+           <th>No.</th>
+            <th>StudentName</th>
+            <th>Select</th>
+            </tr>
+            </thead>
+            <tbody id="tbody_4"></tbody>
+            </table>
+            </div>
+            <div class="col-lg-5 col-md-5 col-sm-5">
+           <table id="table_5" class="table">
+          <thead>
+          <tr>
+          <th>No.</th>
+          <th>CourseName</th>
+          <th>Select</th>
+          </tr>
+          </thead>
+          <tbody id="tbody_5"></tbody>
+          </table>
+          </div>
+          <button type="button" onclick="courseSelected()" class="btn btn-primary btn-block" style="position: absolute;bottom:20px;font-size: 20px;">Alloacate The Course</button>
+      
+      </div>
+
+
+     </div>
+
+
 
   </div>
    
   </div>
 </div>
-<script type="text/javascript" src="home.js"></script> 
+<script type="text/javascript" src="student.js"></script> 
 </body>
 </html>
-  <!--  <div class="input-group">
-         <span class="input-group-btn">
-            <button onclick="removecoursename()" id="coursenamebtn" type="button" class="btn btn-danger">Remove Course</button>
-            </span>
-            <input type="text" id="coursenametxt" class="form-control" placeholder="coursename">
-     </div>
- -->
+  

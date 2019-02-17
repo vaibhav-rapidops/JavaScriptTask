@@ -66,28 +66,21 @@ function addcourse(){
   document.getElementById("course_list").style.display ="none";
   document.getElementById("remove_course").style.display ="none";
   document.getElementById("add_course").style.display ="block";
-
-
-
-let flagOfdb=checkdatabase();
- 
+  let flagOfdb=checkdatabase();
    if(flagOfdb){
-        let i = 0;
        let retrivedatas=JSON.parse(localStorage.getItem("course"));
         let tname=document.getElementById('table_2');
- 
         var tbody_2 = document.getElementById("tbody_2");
-        while (tbody_2.firstChild) {
-         tbody_2.removeChild(tbody_2.firstChild);} 
+         while (tbody_2.firstChild) {
+        tbody_2.removeChild(tbody_2.firstChild);} 
 
-       let len=tname.getElementsByTagName('tr').length;
+        let len=retrivedatas.length;
         console.log(len);
         for(let i in retrivedatas){
-      
         let row=document.createElement('tr');
         row.setAttribute("id","row__"+(len)) ;
         console.log(retrivedatas[i]);
-        row.innerHTML=`<td>${len+1}</td><td>${retrivedatas[i]['name']}</td>`;
+        row.innerHTML=`<td>${Number(i)+1}</td><td>${retrivedatas[i]['name']}</td>`;
         let parent=document.getElementById('tbody_2')
         parent.append(row);
         len++;
@@ -96,14 +89,14 @@ let flagOfdb=checkdatabase();
        }
     
 
-    if(!flagOfdb){
+   // if(!flagOfdb){
     /*this.data={"email":this.email,"password":this.pwd,"usertype":this.usertype};
     this.retrivedatas.push(this.data);
     localStorage.setItem("account",JSON.stringify(this.retrivedatas));
-    */alert("First, You Need to Enter Course");
-    }
+    *///alert("First, You Need to Enter Course");
+    //}
 
-    len=0;
+   // len=0;
 
      
  
@@ -120,7 +113,6 @@ document.getElementById("remove_course").style.display ="block";
   let flagOfdb=checkdatabase();
       if(flagOfdb){
        let retrivedatas=JSON.parse(localStorage.getItem("course"));
-     
         let myNode = document.getElementById("tbody_3");
          while (myNode.firstChild) {
          myNode.removeChild(myNode.firstChild);
@@ -131,11 +123,9 @@ document.getElementById("remove_course").style.display ="block";
         for(let i in retrivedatas){
         let row=document.createElement('tr');
         row.setAttribute("id","row_"+(len)) ;
-        console.log(retrivedatas[i]);
-        row.innerHTML=`<td>${len+1}</td>
+           row.innerHTML=`<td>${len}</td>
                        <td>${retrivedatas[i]['name']}</td>
                        <td><button type="button" onclick="removecoursename(${len})" class="btn btn-danger">Remove Course</button></td>`;
-        
         let parent=document.getElementById('tbody_3')
         parent.append(row);
         len++;
@@ -145,22 +135,40 @@ document.getElementById("remove_course").style.display ="block";
      }
    }
 
+function cleandata(retrivedatas){
+  let result=[];
+  //if(!retrivedatas){
+   // return result;
+ // }
+  for(let data of retrivedatas){
+    if(data){
+     result.push(data);
+    }
+  }
+  return result;
+}
+
 function removecoursename(id){
  
   console.log(id);
-let tname=document.getElementById('table_3');
-let row=document.getElementById("row_"+id);
-  row.parentNode.removeChild(row);   
+  let tname=document.getElementById('table_3');
+  let row=document.getElementById("row_"+id);
+  let cname=row.getElementsByTagName('td');
+  let coursename=cname[1].innerText;
 
+  row.parentNode.removeChild(row);
+  console.log(coursename);
+  let retrivedatas=JSON.parse(localStorage.getItem("course"))
+  
+  for(let i in retrivedatas){
+    if(retrivedatas[i]['name']==coursename){
+       delete retrivedatas[i];
+       break;
+    }
+  }
 
-  let retrivedatas=JSON.parse(localStorage.getItem("course"));
-      
-  console.log(retrivedatas);
-   console.log(typeof retrivedatas);
-     delete   retrivedatas[1];
-    retrivedatas.slice(id, 1);
-  console.log(retrivedatas);
-    localStorage.setItem("course", JSON.stringify(retrivedatas));
+  let data=cleandata(retrivedatas);
+  localStorage.setItem("course", JSON.stringify(data));
     
 }
 
@@ -170,19 +178,34 @@ let row=document.getElementById("row_"+id);
  
 function addcoursename(){
 
+  let flagOfdb=checkdatabase();
   let value=document.getElementById("coursenametxt").value;
+  let len=1;
+  let retrivedatas=[];
+  let flagOfdata=true; 
+  if(flagOfdb){
+  retrivedatas=JSON.parse(localStorage.getItem("course"));
+  len=retrivedatas.length;
+  for(let retrivedata of retrivedatas){
+  if(value==retrivedata.name){
+  alert("Alreay This Course Name Is Taken ! Try With Different Name")
+  flagOfdata=false;
+  break;
+}
+}
 
-  let retrivedatas=JSON.parse(localStorage.getItem("course"));
-  let len=retrivedatas.length;
-   
+} 
+if(flagOfdata){
   let data={"id":len,"name":value};
   retrivedatas.push(data);
   localStorage.setItem("course",JSON.stringify(retrivedatas));
+  alert("Your course Name Successfully added");
   let row=document.createElement('tr');
   row.setAttribute("id","row__"+(len+1)) ;
   row.innerHTML=`<td>${len}</td><td>${data['name']}</td>`;
   let parent=document.getElementById('tbody_2')
   parent.append(row);
+}
 }
 
 
