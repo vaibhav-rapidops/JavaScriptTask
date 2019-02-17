@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" style="height: 100%;">
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+  
+
+</head>
+<body style="height: 100%;">
+<nav class="navbar navbar-default">
+  <div class="container-fluid" >
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">E-Portal</a>
+    </div>
+    <ul class="nav navbar-nav">
+      <li><a href="#">Home</a></li>
+      <li class="active"><a href="studentcourses.html">Course</a></li>
+      <li><a href="student.html">Contect Us</a></li>
+      
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+      <li><a id="user" href="#"><span class="glyphicon glyphicon-user"></span></a></li>
+      <li><a href="#"><span class="glyphicon glyphicon-log-out"></span> Log-out</a></li>
+    </ul>
+  </div>
+</nav>
+
+
+<div = class="container" style="height: 100%; border: 1px solid black;">
+<div class="row" id="module_task" >
+  <div id="task" style="text-align:center"></div>
+<button type="button" style="margin-top: 100px;" onclick="taskCompleted()" class="btn btn-primary btn-block">Continue...! To Next Task</button>
+
+</div>
+</div>
+<script type="text/javascript" src="module.js"></script> 
+</body>
+</html>
