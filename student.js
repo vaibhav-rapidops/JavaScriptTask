@@ -13,8 +13,8 @@ for(let data of trans_data){console.log(data);}
 document.getElementById('user').innerHTML=trans_data[1].email;
 */
 
-function checkdatabase()
-{   let retrivedatas=JSON.parse(localStorage.getItem("student"));
+function checkdatabase(dbname)
+{   let retrivedatas=JSON.parse(localStorage.getItem(dbname));
 //    console.log(retrivedatas);
     if(retrivedatas==null){
       return false;
@@ -42,7 +42,7 @@ function studentList(){
   document.getElementById("remove_student").style.display ="none";
  document.getElementById("add_student").style.display ="none";
  document.getElementById("student_list").style.display ="block";
- let flagOfdb=checkdatabase();
+ let flagOfdb=checkdatabase("student");
    if(flagOfdb){
         let retrivedatas=JSON.parse(localStorage.getItem("student"));
         let tname=document.getElementById('table_1');
@@ -76,7 +76,7 @@ function addStudent(){
   document.getElementById("remove_student").style.display ="none";
   document.getElementById("course_allocate").style.display ="none";
   document.getElementById("add_student").style.display ="block";
-  let flagOfdb=checkdatabase();
+  let flagOfdb=checkdatabase("student");
    if(flagOfdb){
        let retrivedatas=JSON.parse(localStorage.getItem("student"));
         let tname=document.getElementById('table_2');
@@ -99,7 +99,7 @@ function addStudent(){
 }
 
 function addstudentname(){
-    let flagOfdb=checkdatabase();
+    let flagOfdb=checkdatabase("student");
     let value=document.getElementById("studentnametxt").value;
     let len=0;
     let retrivedatas=[];
@@ -138,7 +138,7 @@ document.getElementById("course_allocate").style.display ="none";
 document.getElementById("remove_student").style.display ="block";
  
 
-  let flagOfdb=checkdatabase();
+  let flagOfdb=checkdatabase("student");
       if(flagOfdb){
        let retrivedatas=JSON.parse(localStorage.getItem("student"));
         let Node = document.getElementById("tbody_3");
@@ -202,7 +202,7 @@ function removeStudentName(id){
 
 
 function getStudentForCousre(){
-  let flagOfdb=checkdatabase();
+  let flagOfdb=checkdatabase("student");
   if(flagOfdb){
    let retrivedatas=JSON.parse(localStorage.getItem("student"));
     let Node = document.getElementById("tbody_4");
@@ -232,7 +232,7 @@ tname.getElementById("row_"+len).style.background="green";
 }
 
  function getCourseForStudent(){
-  let flagOfdb=checkdatabase();
+  let flagOfdb=checkdatabase("course");
   if(flagOfdb){
    let retrivedatas=JSON.parse(localStorage.getItem("course"));
     let Node = document.getElementById("tbody_5");
@@ -264,9 +264,10 @@ let id1=document.getElementById('tbody_4');
 let query1=id1.querySelectorAll("input[type='checkbox']:checked");
 let id2=document.getElementById('tbody_5');
 let query2=id2.querySelectorAll("input[type='checkbox']:checked");
-courseAllocated=JSON.parse(localStorage.getItem("courseAllocated"));
 
-console.log(courseAllocated);
+let flagOfdb=checkdatabase("courseAllocated");
+if(flagOfdb){
+courseAllocated=JSON.parse(localStorage.getItem("courseAllocated"));
 for(let i of query1){
   let data={};
   let index=1;
@@ -315,5 +316,75 @@ for(let i of query1){
     
     }
   }
+
+
+}else{
+ ;
+for(let i of query1){
+  let data={};
+  let index=1;
+   let flagOfdata=true;
+     data.name=i.value;
+       for(let j of query2){
+       let cname="course_"+index;
+       data[cname]=j.value;
+       index++;
+       }
+
+      courseAllocated.push(data);  
+    
+}
+}
+
 localStorage.setItem("courseAllocated",JSON.stringify(courseAllocated));
+listOfStudentWithCourse();
+}
+
+function listOfStudentWithCourse(){
+let flagOfdb=checkdatabase("courseAllocated");
+let parent=document.getElementById('tbody_6');
+if(flagOfdb){
+  let datas=JSON.parse(localStorage.getItem("courseAllocated"));
+    let Node = document.getElementById("thead_6");
+     while (Node.firstChild) {
+     Node.removeChild(Node.firstChild);
+     }
+
+     Node = document.getElementById("tbody_6");
+     while (Node.firstChild) {
+     Node.removeChild(Node.firstChild);
+     }
+
+
+
+     let max=0; 
+     for(let i=0;i<datas.length;i++){
+     let len=Object.keys(datas[i]).length;
+      if(max<len){
+        max=len;
+      }
+      let tr=document.createElement('tr');
+      tr.setAttribute("id",i+1);
+  
+      let row=`<td>${i+1}</td>`;
+      for(let j in datas[i]){
+      row=row.trim()+`<td>${datas[i][j]}</td>`
+      }    
+      tr.innerHTML=`${row}`;
+      parent.append(tr);
+    }
+   let row1="<th>No.</th><th>Name</th>";
+
+     let headparent=document.getElementById('thead_6');
+      for(let i=1;i<max;i++){
+      row1=row1.trim()+`<th>course ${i}</th>`
+     console.log(row1);
+    }
+    console.log(row1);
+    let tr1=document.createElement('tr');
+    tr1.innerHTML=`${row1}`;
+     headparent.append(tr1);
+
+}
+
 }
