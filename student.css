@@ -1,0 +1,19 @@
+
+.nav-item{
+
+	font-weight: bold;
+	font-size: 20px;
+	padding: 20;
+    margin-top: 20px;
+	border-radius: 5px;
+	text-align: center;
+	
+}
+
+#student_list,#add_student,#remove_student,#course_allocate{
+ 
+    display:none;
+
+}
+
+  
